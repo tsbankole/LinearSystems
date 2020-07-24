@@ -8,9 +8,8 @@ Matrix2D::Matrix2D(int mNumRows = 1, int mNumCols = 1) {
 	assert(mNumCols > 0 && mNumRows > 0);
 	this->mNumRows = mNumRows;
 	this->mNumCols = mNumCols;
-	int Matrix2Dsize{ mNumCols * mNumCols };
 	mData = new double*[mNumRows];
-	for (int i = 0; i < mNumCols; i++) {
+	for (int i = 0; i < mNumRows; i++) {
 		mData[i] = new double[mNumCols];
 		for (int j = 0; j < mNumCols; j++) {
 			mData[i][j] = 0.0;
@@ -23,6 +22,7 @@ Matrix2D::Matrix2D(const Matrix2D& OtherMatrix2D) {
 	mNumRows = OtherMatrix2D.mNumRows;
 	mData = new double*[mNumRows];
 	for (int i = 0; i < mNumRows; i++) {
+		mData[i] = new double[mNumCols];
 		for (int j = 0; j < mNumCols; j++) {
 			mData[i][j] = OtherMatrix2D.mData[i][j];
 		}
@@ -41,6 +41,7 @@ Matrix2D::Matrix2D(std::initializer_list < std::initializer_list < double > > li
 	mData = new double*[numrows];
 
 	for (int i = 0; i < numrows; i++) {
+		mData[i] = new double[numcols];
 		for (int j = 0; j < numcols; j++) {
 			mData[i][j] = list.begin()[i].begin()[j];
 		}
@@ -79,7 +80,12 @@ Matrix2D Matrix2D::operator=(const Matrix2D& otherMatrix2D) {
 
 Matrix2D Matrix2D::operator+() const {
 	Matrix2D m(mNumRows, mNumCols);
-	m = *this;
+	//m = *this;
+	for (int i = 0; i < mNumRows; i++) {
+		for (int j = 0; j < mNumCols; j++) {
+			m.mData[i][j] = mData[i][j];
+		}
+	}
 	return m;
 }
 
@@ -139,14 +145,14 @@ Vector Matrix2D::operator*(const Vector& v) const {
 }
 
 Vector operator*(const Vector& v, const Matrix2D& m) {
-	int cols = m.GetNumberOfColumns;
-	int rows = m.GetNumberOfRows;
-	assert(cols == v.GetSize());
+	int cols = m.GetNumberOfColumns();
+	int rows = m.GetNumberOfRows();
+	assert(rows == v.GetSize());
 	Vector result = Vector(cols);
 	for (int i = 0; i < cols; i++) {
 		double temp{ 0.0 };
 		for (int j = 0; j < rows; j++) {
-			temp += v.Read(j) * m.mData[i][j];
+			temp += v.Read(j) * m.mData[j][i];
 		}
 		result[i] = temp;
 	}
@@ -212,7 +218,7 @@ std::ostream& operator<<(std::ostream& output, const Matrix2D& m) {
 		for (; j < m.mNumCols-1; j++) {
 			output << m.mData[i][j] << ", ";
 		}
-		output << m.mData[i][j] << " } ";
+		output << m.mData[i][j] << " }, ";
 	}
 	output << "} \n";
 	return output;

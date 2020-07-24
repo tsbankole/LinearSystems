@@ -11,7 +11,7 @@
 // entries of other vector into it
 
 Vector::Vector(const Vector& otherVector) {
-	delete[] mData;
+	//delete[] mData;
 	mSize = otherVector.GetSize();
 	mData = new double[mSize];
 	for (int i = 0; i < mSize; i++) {

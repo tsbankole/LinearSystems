@@ -1,5 +1,6 @@
 #include"Vector.h";
 #include "Matrix.h"
+#include "Matrix2D.h"|
 #include<string>
 #include<cassert>
 #include<iostream>
@@ -9,9 +10,9 @@ using namespace std;
 int main(){
 
 	// test constructor
-	Vector v1{ 1,2,3,4,5 };
+	Vector v1{ 1,2,3 };
 	Vector v2 = v1 * 2.0;
-	cout << v2;
+	//cout << v2;
     //	cout << v1;
 	/*
 	Vector v2{ 2,3,4,5,6 };
@@ -38,25 +39,26 @@ int main(){
 
 	/*****testing matrices **********/
 
-	Matrix m1{ {1,2,3,4},2,2 };
+	Matrix2D m{ {1,2,3}, {4,5,6}, {7,8,9} , {0,-1,-2} };
+
+	cout << m << m.GetNumberOfColumns() << m.GetNumberOfRows();
+
+	Matrix2D m1 = m;
+
 	cout << m1;
 
-	Matrix m2{ {2,3,4,5}, 2,2 };
+	Matrix2D m2(4, 3);
+	m2= +m;
+	m2 = -m;
+	cout << m2;
+	
+	Matrix2D m3 = m * -1.0;
+	cout << m3 + m;
 
-	Matrix m3 = m2 - m1;
-	cout << m3;
+	Vector v3 = m * v1;
+	cout << m*v1;
 
-	Matrix m4 = m2 + m1;
-	cout << m4;
-
-	Matrix m5 = m4*2.0;
-	cout << m5;
-
-	Matrix m6{ {1.0,2.0,3.0,4.0,5.0,-1.0,-2.0,-3.0,-4.0,-5.0}, 5,2 };
-	cout << m6;
-	Vector v3 = m6 * v2;
-	cout << v3;
-
-
+	Vector v4{ 0,1,-1,0 };
+	cout << v4 * m;
 	return 0;
 }
