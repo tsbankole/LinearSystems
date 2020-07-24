@@ -28,7 +28,10 @@ public:
 	Matrix2D operator*(const Matrix2D& otherMatrix2D) const;
 	double CalculateDeterminant() const;
 	friend std::ostream& operator<<(std::ostream& output, const Matrix2D& m);
+	//friend Vector operator*(const Matrix2D& m, const Vector& v);
+	friend Vector operator*(const Vector& v, const Matrix2D& m);
 
 };
 
+Matrix2D operator*(double a, const Matrix2D& othermatrix);
 

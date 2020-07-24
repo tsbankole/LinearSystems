@@ -5,21 +5,28 @@
 #include <cassert>
 
 Matrix2D::Matrix2D(int mNumRows = 1, int mNumCols = 1) {
+	assert(mNumCols > 0 && mNumRows > 0);
 	this->mNumRows = mNumRows;
 	this->mNumCols = mNumCols;
 	int Matrix2Dsize{ mNumCols * mNumCols };
 	mData = new double*[mNumRows];
 	for (int i = 0; i < mNumCols; i++) {
 		mData[i] = new double[mNumCols];
+		for (int j = 0; j < mNumCols; j++) {
+			mData[i][j] = 0.0;
+		}
 	}
 }
 
 Matrix2D::Matrix2D(const Matrix2D& OtherMatrix2D) {
 	mNumCols = OtherMatrix2D.mNumCols;
 	mNumRows = OtherMatrix2D.mNumRows;
-	mData = new double*[mNumCols];
+	mData = new double*[mNumRows];
 	for (int i = 0; i < mNumRows; i++) {
-		mData[i] = new double[mNumCols];
+		for (int j = 0; j < mNumCols; j++) {
+			mData[i][j] = OtherMatrix2D.mData[i][j];
+		}
+		
 	}
 }
 
@@ -41,8 +48,8 @@ Matrix2D::Matrix2D(std::initializer_list < std::initializer_list < double > > li
 }
 
 Matrix2D::~Matrix2D() {
-	for (int j = 0; j < mNumCols; j++) {
-		delete[] mData[j];
+	for (int i = 0; i < mNumRows; i++) {
+		delete[] mData[i];
 	}
 	delete[] mData;
 }
@@ -56,7 +63,7 @@ int Matrix2D::GetNumberOfRows() const {
 }
 
 double& Matrix2D::operator()(int i, int j) {
-	assert(i <= mNumCols && j <= mNumCols);
+	assert(i > 0 && i <= mNumCols && j > 0 && j <= mNumCols);
 	return mData[i-1][j-1];
 }
 
@@ -119,12 +126,27 @@ Matrix2D Matrix2D::operator*(double a) const {
 }
 
 Vector Matrix2D::operator*(const Vector& v) const {
-	assert(mNumRows == v.GetSize());
-	Vector result = Vector(mNumCols);
-	for (int i = 0; i < mNumCols; i++) {
+	assert(mNumCols== v.GetSize());
+	Vector result = Vector(mNumRows);
+	for (int i = 0; i < mNumRows; i++) {
 		double temp{ 0.0 };
-		for (int j = 0; j < mNumRows; j++) {
+		for (int j = 0; j < mNumCols; j++) {
 			temp += v.Read(j) * mData[i][j];
+		}
+		result[i] = temp;
+	}
+	return result;
+}
+
+Vector operator*(const Vector& v, const Matrix2D& m) {
+	int cols = m.GetNumberOfColumns;
+	int rows = m.GetNumberOfRows;
+	assert(cols == v.GetSize());
+	Vector result = Vector(cols);
+	for (int i = 0; i < cols; i++) {
+		double temp{ 0.0 };
+		for (int j = 0; j < rows; j++) {
+			temp += v.Read(j) * m.mData[i][j];
 		}
 		result[i] = temp;
 	}
@@ -149,10 +171,38 @@ Matrix2D Matrix2D::operator*(const Matrix2D& otherMatrix2D) const {
 }
 
 
-double Matrix2D::CalculateDeterminant() const {
-	return 1.0;
-
+// Calculate determinant of square matrix recursively
+double Matrix2D::CalculateDeterminant() const
+{
+	assert(mNumRows == mNumCols);
+	double determinant = 0.0;
+	if (mNumRows == 1)
+	{
+		determinant = mData[0][0];
+	}
+	else
+	{   // More than one entry of matrix
+		for (int i_outer = 0; i_outer < mNumRows; i_outer++)
+		{
+			Matrix2D sub_matrix(mNumRows - 1, mNumRows - 1);
+			for (int i = 0; i < mNumRows - 1; i++)
+			{
+				for (int j = 0; j < i_outer; j++)
+				{
+					sub_matrix(i + 1, j + 1) = mData[i + 1][j];
+				}
+				for (int j = i_outer; j < mNumRows - 1; j++)
+				{
+					sub_matrix(i + 1, j + 1) = mData[i + 1][j + 1];
+				}
+			}
+			double sub_matrix_determinant =	sub_matrix.CalculateDeterminant();
+			determinant += pow(-1.0, i_outer) *	mData[0][i_outer] * sub_matrix_determinant;
+		}
+	}
+	return determinant;
 }
+
 
 std::ostream& operator<<(std::ostream& output, const Matrix2D& m) {
 	output << " { ";
@@ -168,3 +218,6 @@ std::ostream& operator<<(std::ostream& output, const Matrix2D& m) {
 	return output;
 }
 
+Matrix2D operator*(double a, const Matrix2D& othermatrix ){
+	return othermatrix*a;
+}

@@ -46,7 +46,7 @@ int Matrix::GetNumberOfRows() const {
 }
 
 double& Matrix::operator()(int i, int j) {
-	assert(i <= mNumCols && j <= mNumCols);
+	assert(i <= mNumRows && j <= mNumCols);
 	return mData[(i - 1)*mNumCols + (j - 1)];
 }
 
