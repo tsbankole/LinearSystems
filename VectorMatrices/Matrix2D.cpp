@@ -63,9 +63,14 @@ int Matrix2D::GetNumberOfRows() const {
 	return mNumRows;
 }
 
-double& Matrix2D::operator()(int i, int j) {
+double Matrix2D::operator()(int i, int j) const{
 	assert(i > 0 && i <= mNumCols && j > 0 && j <= mNumCols);
 	return mData[i-1][j-1];
+}
+
+double* Matrix2D::operator[](int i) {
+	assert(i >= 0 && i < mNumCols );
+	return mData[i];
 }
 
 Matrix2D Matrix2D::operator=(const Matrix2D& otherMatrix2D) {
@@ -195,11 +200,11 @@ double Matrix2D::CalculateDeterminant() const
 			{
 				for (int j = 0; j < i_outer; j++)
 				{
-					sub_matrix(i + 1, j + 1) = mData[i + 1][j];
+					sub_matrix[i][j] = mData[i + 1][j];
 				}
 				for (int j = i_outer; j < mNumRows - 1; j++)
 				{
-					sub_matrix(i + 1, j + 1) = mData[i + 1][j + 1];
+					sub_matrix[i][j] = mData[i + 1][j + 1];
 				}
 			}
 			double sub_matrix_determinant =	sub_matrix.CalculateDeterminant();

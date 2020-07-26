@@ -15,7 +15,7 @@ public:
 	
 	double Read(int i) const; // read-only zero-based indexing
 	void Write(int i, double val);
-	double& operator()(int i); // one-based indexing // assignment
+	double operator()(int i) const; // one-based indexing // assignment
 	Vector& operator=(const Vector& otherVector);
 	Vector operator+() const; // unary +
 	Vector operator-() const; // unary -

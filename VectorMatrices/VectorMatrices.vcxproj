@@ -151,12 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LinearSystem.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Matrix2D.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LinearSystem.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Matrix2D.h" />
     <ClInclude Include="Vector.h" />

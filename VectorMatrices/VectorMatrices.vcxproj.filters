@@ -24,6 +24,9 @@
     <ClInclude Include="Matrix2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LinearSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector.cpp">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Matrix2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

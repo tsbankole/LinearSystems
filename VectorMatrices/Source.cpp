@@ -1,6 +1,7 @@
 #include"Vector.h";
 #include "Matrix.h"
 #include "Matrix2D.h"|
+#include "LinearSystem.h"
 #include<string>
 #include<cassert>
 #include<iostream>
@@ -60,5 +61,15 @@ int main(){
 
 	Vector v4{ 0,1,-1,0 };
 	cout << v4 * m;
+
+	Matrix2D  m5{ {1,2}, {3,4} };
+	Matrix2D  m6{ {0,1,0}, {1,-1,0} };
+
+	cout << m5 * m6;
+
+	cout << "\n\t" << m5.CalculateDeterminant() << "\n";
+
+	LinearSystem ls(m5, Vector{ 5,11 });
+	cout << ls.Solve();
 	return 0;
 }

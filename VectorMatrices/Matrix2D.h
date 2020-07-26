@@ -17,7 +17,8 @@ public:
 	int GetNumberOfRows() const;
 	int GetNumberOfColumns() const;
 
-	double& operator()(int i, int j);
+	double operator()(int i, int j) const;
+	double* operator[](int i);
 	Matrix2D operator=(const Matrix2D& otherMatrix2D);
 	Matrix2D operator+() const;
 	Matrix2D operator-() const;

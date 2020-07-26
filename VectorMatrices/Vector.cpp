@@ -56,7 +56,7 @@ void Vector::Write(int i, double val) {
 	mData[i] = val;
 }
 
-double& Vector::operator()(int i) {
+double Vector::operator()(int i) const{
 	//assert(i <= mSize && i > 1);
 	return mData[i-1];
 }
@@ -134,10 +134,11 @@ int length(const Vector& v) {
 
 std::ostream& operator<<(std::ostream& output, const Vector& v) {
 	output << " { ";
-	for (int i = 0; i < v.mSize; i++) {
+	int i = 0;
+	for (; i < v.mSize-1; i++) {
 		output << v.mData[i] << ", ";
 	}
-	output << "} \n";
+	output << v.mData[i] << " } \n";
 	return output;
 }
 
