@@ -6,9 +6,10 @@
 #include "LinearSystem.h"
 
 
-LinearSystem::LinearSystem(const Matrix2D A, const Vector b) {
+LinearSystem::LinearSystem(const Matrix2D& A, const Vector& b) {
 	mSize = b.GetSize();
 	assert(mSize == A.GetNumberOfRows());
+	assert(mSize == A.GetNumberOfColumns());
 	mpA = new Matrix2D(A);
 	mpb = new Vector(b);
 }

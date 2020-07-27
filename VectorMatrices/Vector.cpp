@@ -23,6 +23,9 @@ Vector::Vector(int size) {
 	assert(size > 0);
 	mSize = size;
 	mData = new double[mSize];
+	for (int i = 0; i < size; i++) {
+		mData[i] = 0.0;
+	}
 }
 
 Vector::Vector(std::initializer_list<double> list): Vector((int) list.size()) {
@@ -58,7 +61,7 @@ void Vector::Write(int i, double val) {
 
 double Vector::operator()(int i) const{
 	//assert(i <= mSize && i > 1);
-	return mData[i-1];
+	return mData[i];
 }
 
 // Overloading the assignment operator
@@ -130,6 +133,15 @@ double Vector::CalculateNorm(int p) const {
 
 int length(const Vector& v) {
 	return v.mSize;
+}
+
+double inner(const Vector& v1, const Vector& v2) {
+	assert(v1.mSize == v2.mSize);
+	double temp = 0.0;
+	for (int i = 0; i < v1.mSize; i++) {
+		temp += v1(i) * v2(i);
+	}
+	return temp;
 }
 
 std::ostream& operator<<(std::ostream& output, const Vector& v) {

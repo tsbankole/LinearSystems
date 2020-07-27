@@ -1,7 +1,8 @@
-#include"Vector.h";
+#include"Vector.h"
 #include "Matrix.h"
-#include "Matrix2D.h"|
+#include "Matrix2D.h"
 #include "LinearSystem.h"
+#include "PosDefSymmLinearSys.h"
 #include<string>
 #include<cassert>
 #include<iostream>
@@ -39,7 +40,7 @@ int main(){
 	cout << v7.CalculateNorm(1); */
 
 	/*****testing matrices **********/
-
+	/*
 	Matrix2D m{ {1,2,3}, {4,5,6}, {7,8,9} , {0,-1,-2} };
 
 	cout << m << m.GetNumberOfColumns() << m.GetNumberOfRows();
@@ -71,5 +72,11 @@ int main(){
 
 	LinearSystem ls(m5, Vector{ 5,11 });
 	cout << ls.Solve();
+	*/
+	Matrix2D  symm({ { 14,3,8 }, { 3,6,6 }, { 8,6,11 } });
+	Vector b{ 11,12,17 };
+	PoSDefSymmLinearSys psd(symm, b);
+	cout << psd.solve();
+
 	return 0;
 }

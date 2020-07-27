@@ -27,6 +27,7 @@ public:
 	double CalculateNorm(int p = 2) const; // p-norm method
 	// declare length function as a friend
 	friend int length(const Vector& v); 
+	friend double inner(const Vector& v1, const Vector& v2);
 	friend std::ostream& operator<<(std::ostream& output, const Vector& v);
 	};
 

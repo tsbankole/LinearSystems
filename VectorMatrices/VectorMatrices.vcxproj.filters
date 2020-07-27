@@ -27,6 +27,9 @@
     <ClInclude Include="LinearSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PosDefSymmLinearSys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector.cpp">
@@ -43,6 +46,9 @@
     </ClCompile>
     <ClCompile Include="LinearSystem.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PosDefSymmLinearSys.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
