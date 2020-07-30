@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include <cmath>
 #include <cassert>
+#include"mkl.h"
 
 //Overridden copy constructor
 // Allocates memory for new vector, and copies
@@ -137,11 +138,18 @@ int length(const Vector& v) {
 
 double inner(const Vector& v1, const Vector& v2) {
 	assert(v1.mSize == v2.mSize);
-	double temp = 0.0;
+	/********** My inner product calculation*********/
+	/*double temp = 0.0;
 	for (int i = 0; i < v1.mSize; i++) {
 		temp += v1(i) * v2(i);
 	}
-	return temp;
+	return temp;*/
+	const int* n = &v1.mSize;
+	const double* x = &v1.mData[0];
+	const double* y = &v2.mData[0];
+	const int ix = 1;
+	const int iy = 1;
+	return ddot(n, x, &ix, y, &iy);
 }
 
 std::ostream& operator<<(std::ostream& output, const Vector& v) {

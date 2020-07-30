@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\VectorMatrices"
+    "\\VectorMatrices",
+    "\\VectorMatrices\\x64\\Debug"
   ],
-  "SelectedNode": "\\VectorMatrices\\Matrix.cpp",
+  "SelectedNode": "\\VectorMatrices\\Vector.cpp",
   "PreviewInSolutionExplorer": false
 }

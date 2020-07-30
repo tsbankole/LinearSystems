@@ -78,5 +78,9 @@ int main(){
 	PoSDefSymmLinearSys psd(symm, b);
 	cout << psd.solve();
 
+	Vector c{ 1.0, 2.0, 3.0, 4.0 };
+	Vector d{ 1.0, 2.0, 1.0, 0.0 };
+	cout << inner(c, d);
+
 	return 0;
 }
