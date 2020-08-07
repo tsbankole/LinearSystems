@@ -6,6 +6,7 @@ class Vector;
 class Matrix2D
 {
 private:
+friend class BvpOde;
 	double** mData;
 	int mNumRows;
 	int mNumCols;
@@ -35,4 +36,3 @@ public:
 };
 
 Matrix2D operator*(double a, const Matrix2D& othermatrix);
-

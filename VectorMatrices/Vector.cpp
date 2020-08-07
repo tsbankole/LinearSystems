@@ -163,5 +163,9 @@ std::ostream& operator<<(std::ostream& output, const Vector& v) {
 }
 
 
+Vector operator*(double a, const Vector& othervector) {
+	return othervector * a;
+}
+
 
 

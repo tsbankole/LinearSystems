@@ -223,7 +223,7 @@ std::ostream& operator<<(std::ostream& output, const Matrix2D& m) {
 		for (; j < m.mNumCols-1; j++) {
 			output << m.mData[i][j] << ", ";
 		}
-		output << m.mData[i][j] << " }, ";
+		output << m.mData[i][j] << " }, \n ";
 	}
 	output << "} \n";
 	return output;

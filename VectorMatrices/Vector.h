@@ -3,6 +3,7 @@
 class Vector
 {
 private:
+friend class BvpOde;
 	double* mData; // data stored in vector
 	int mSize; // size of vector 
 public:
@@ -33,3 +34,5 @@ public:
 
 // Prototype signature of length() friend function
 //int length(const Vector& v);
+
+Vector operator*(double a, const Vector& othervector);

@@ -63,24 +63,34 @@ int main(){
 	Vector v4{ 0,1,-1,0 };
 	cout << v4 * m;
 
-	Matrix2D  m5{ {1,2}, {3,4} };
+	
 	Matrix2D  m6{ {0,1,0}, {1,-1,0} };
 
 	cout << m5 * m6;
 
 	cout << "\n\t" << m5.CalculateDeterminant() << "\n";
-
-	LinearSystem ls(m5, Vector{ 5,11 });
-	cout << ls.Solve();
 	*/
-	Matrix2D  symm({ { 14,3,8 }, { 3,6,6 }, { 8,6,11 } });
+	srand(1);
+	Matrix2D  m5{ {1,2,3,4,5}, {3,4,-1,2,3}, {4,33,1,0,5}, {12,11,23,22,98},{100,-1,-2,22, 3} };
+	LinearSystem ls(m5, Vector{ 5,11, 12, -1, 12 });
+	Timer t;
+	cout << ls.Solve();
+	cout << "time elapsed with my gauss elimination with pivoting is " << t.elapsed() << "seconds\n";
+
+	t.reset();
+	cout << ls.SolveMKL();
+	cout << "time elapsed with MKL DGESV is " << t.elapsed() << "seconds\n";
+	
+
+
+	/*Matrix2D  symm({ { 14,3,8 }, { 3,6,6 }, { 8,6,11 } });
 	Vector b{ 11,12,17 };
 	PoSDefSymmLinearSys psd(symm, b);
 	cout << psd.solve();
 
 	Vector c{ 1.0, 2.0, 3.0, 4.0 };
 	Vector d{ 1.0, 2.0, 1.0, 0.0 };
-	cout << inner(c, d);
+	cout << inner(c, d);*/
 
 	return 0;
 }

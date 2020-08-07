@@ -30,6 +30,9 @@
     <ClInclude Include="PosDefSymmLinearSys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\ProjectMKL\ProjectMKL\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector.cpp">
@@ -48,7 +51,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PosDefSymmLinearSys.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
 #include<cmath>
 #include<cassert>
 #include<iostream>
+#include <vector>
 #include "Vector.h"
 #include "Matrix2D.h"
 #include "LinearSystem.h"
+#include "mkl.h"
 
 
 LinearSystem::LinearSystem(const Matrix2D& A, const Vector& b) {
@@ -15,7 +17,7 @@ LinearSystem::LinearSystem(const Matrix2D& A, const Vector& b) {
 }
 
 
-LinearSystem::LinearSystem() {
+LinearSystem::~LinearSystem() {
 	delete mpA;
 	delete mpb;
 }
@@ -23,12 +25,12 @@ LinearSystem::LinearSystem() {
 
 Vector LinearSystem::Solve()
 {
+	Matrix2D rA = *mpA;
+	Vector rb = *mpb;
 	Vector m(mSize);
 	Vector solution(mSize);
 	
-	Matrix2D rA = *mpA;
-	Vector rb = *mpb;
-
+	//std::cout << rA << "\n";
 	// forward sweep of Gaussian elimination
 	for (int k = 0; k < mSize - 1; k++) {
 		// see if pivoting is necessary
@@ -73,6 +75,32 @@ Vector LinearSystem::Solve()
 		}
 		solution[i] /= rA[i][i];
 	}
-	return solution;
 
+	return solution;
+}
+
+
+Vector LinearSystem::SolveMKL() {
+	Matrix2D rA = *mpA;
+	Vector rb = *mpb;
+
+	double* A = (double *)mkl_malloc(mSize*mSize * sizeof(double), 64);
+	double* b = (double *)mkl_malloc(mSize * sizeof(double), 64);
+	for (size_t i = 0; i < mSize; i++) {
+		for (size_t j = 0; j < mSize; j++) {
+			A[i*mSize + j] = rA[i][j];
+		}
+		b[i] = rb[i];
+	}
+
+	int* ipiv = new int[mSize];
+
+
+	LAPACKE_dgesv(LAPACK_ROW_MAJOR, mSize, 1, A, mSize, ipiv, b, 1);
+	
+	// copy back the solution from the matrix b into the Vector to be returned
+	for (size_t i = 0; i < mSize; i++) {
+		rb[i] = b[i];
+	}
+	return rb;
 }

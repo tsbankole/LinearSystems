@@ -161,6 +161,7 @@
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\ProjectMKL\ProjectMKL\Utils.h" />
     <ClInclude Include="LinearSystem.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Matrix2D.h" />
