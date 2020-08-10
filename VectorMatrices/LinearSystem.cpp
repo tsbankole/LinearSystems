@@ -30,7 +30,6 @@ Vector LinearSystem::Solve()
 	Vector m(mSize);
 	Vector solution(mSize);
 	
-	//std::cout << rA << "\n";
 	// forward sweep of Gaussian elimination
 	for (int k = 0; k < mSize - 1; k++) {
 		// see if pivoting is necessary
@@ -94,13 +93,15 @@ Vector LinearSystem::SolveMKL() {
 	}
 
 	int* ipiv = new int[mSize];
-
-
+	
 	LAPACKE_dgesv(LAPACK_ROW_MAJOR, mSize, 1, A, mSize, ipiv, b, 1);
 	
 	// copy back the solution from the matrix b into the Vector to be returned
 	for (size_t i = 0; i < mSize; i++) {
 		rb[i] = b[i];
 	}
+
+	delete [] ipiv;
 	return rb;
+
 }
