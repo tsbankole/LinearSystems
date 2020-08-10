@@ -64,7 +64,7 @@ int Matrix2D::GetNumberOfRows() const {
 }
 
 double Matrix2D::operator()(int i, int j) const{
-	assert(i >= 0 && i < mNumCols && j >= 0 && j < mNumCols);
+	assert(i >= 0 && i < mNumRows && j >= 0 && j < mNumCols);
 	return mData[i][j];
 }
 
