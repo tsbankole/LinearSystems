@@ -5,6 +5,7 @@
 #include "Matrix2D.h"
 #include "LinearSystem.h"
 #include "PosDefSymmLinearSys.h"
+#include "pch.h"
 
 PoSDefSymmLinearSys::PoSDefSymmLinearSys(const Matrix2D& A, const Vector& b) {
 	mSize = b.GetSize();
